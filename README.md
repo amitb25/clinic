@@ -2,6 +2,18 @@
 
 A modern, professional web-based Clinic Management System with React.js frontend and Node.js/Express backend.
 
+## Live Demo
+
+- **Frontend**: https://sariva-clinic.vercel.app
+- **Backend API**: https://backend-alpha-neon-98.vercel.app
+- **GitHub**: https://github.com/amitb25/clinic.git
+
+### Demo Credentials
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@clinic.com | admin123 |
+
 ## Features
 
 - **User Authentication** - JWT-based authentication with role-based access (Admin/Doctor)
