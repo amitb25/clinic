@@ -27,8 +27,8 @@ const Sidebar = () => {
     { path: '/doctors', icon: UserCog, label: 'Doctors', adminOnly: true },
     { path: '/patients', icon: Users, label: 'Patients' },
     { path: '/medicines', icon: Pill, label: 'Medicines' },
-    { path: '/prescriptions', icon: FileText, label: 'Prescriptions' },
     { path: '/appointments', icon: Calendar, label: 'Appointments' },
+    { path: '/prescriptions', icon: FileText, label: 'Prescriptions' },
   ];
 
   const masterItems = [
