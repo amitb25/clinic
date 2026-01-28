@@ -575,13 +575,18 @@ const Prescriptions = () => {
             />
           </div>
 
-          <Input
-            label="Diagnosis"
-            name="diagnosis"
-            value={formData.diagnosis}
-            onChange={handleChange}
-            required
-          />
+          <div>
+            <label className="label">Diagnosis <span className="text-red-500">*</span></label>
+            <textarea
+              name="diagnosis"
+              value={formData.diagnosis}
+              onChange={handleChange}
+              required
+              rows={3}
+              className="input"
+              placeholder="Enter diagnosis..."
+            />
+          </div>
 
           {/* Medicines */}
           <div>
