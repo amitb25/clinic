@@ -745,10 +745,15 @@ const Prescriptions = () => {
                       )}
                     </div>
 
-                    {/* Center - Clinic Name */}
+                    {/* Center - Clinic Name with Caduceus Logo */}
                     <div style={{ textAlign: 'center', flex: 1, padding: '0 10px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                        <span style={{ color: '#C41E3A', fontSize: '20px' }}>❦</span>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+                        {/* Left S Logo */}
+                        <svg width="32" height="40" viewBox="0 0 32 40" style={{ flexShrink: 0 }}>
+                          <path d="M16 2 C8 2 4 8 4 14 C4 20 8 22 16 24 C24 26 28 28 28 34 C28 38 24 40 16 40"
+                            fill="none" stroke="#C41E3A" strokeWidth="4" strokeLinecap="round"/>
+                        </svg>
+
                         <h1 style={{
                           fontSize: '32px',
                           fontWeight: '700',
@@ -758,7 +763,23 @@ const Prescriptions = () => {
                         }}>
                           {clinicSettings?.clinicNameHindi || 'सारिवा क्लिनिक'}
                         </h1>
-                        <span style={{ color: '#C41E3A', fontSize: '18px' }}>☤</span>
+
+                        {/* Right Caduceus Medical Logo */}
+                        <svg width="36" height="45" viewBox="0 0 50 60" style={{ flexShrink: 0 }}>
+                          {/* Wings */}
+                          <path d="M10 18 Q5 15 2 18 Q5 12 12 14 Q8 10 4 12 Q8 6 15 10 L25 15" fill="#C41E3A"/>
+                          <path d="M40 18 Q45 15 48 18 Q45 12 38 14 Q42 10 46 12 Q42 6 35 10 L25 15" fill="#C41E3A"/>
+                          {/* Staff */}
+                          <line x1="25" y1="8" x2="25" y2="58" stroke="#C41E3A" strokeWidth="2.5"/>
+                          {/* Top circle */}
+                          <circle cx="25" cy="6" r="4" fill="#C41E3A"/>
+                          {/* Left Snake */}
+                          <path d="M25 15 Q18 20 18 25 Q18 30 25 32 Q32 34 32 40 Q32 46 25 48 Q18 50 18 54"
+                            fill="none" stroke="#C41E3A" strokeWidth="3" strokeLinecap="round"/>
+                          {/* Right Snake */}
+                          <path d="M25 15 Q32 20 32 25 Q32 30 25 32 Q18 34 18 40 Q18 46 25 48 Q32 50 32 54"
+                            fill="none" stroke="#C41E3A" strokeWidth="3" strokeLinecap="round"/>
+                        </svg>
                       </div>
                       {clinicSettings?.tagline && (
                         <p style={{ margin: '3px 0 0 0', color: '#888', fontSize: '10px', fontStyle: 'italic' }}>
