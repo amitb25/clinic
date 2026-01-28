@@ -44,6 +44,10 @@ const clinicSettingsSchema = new mongoose.Schema({
     required: [true, 'Please add clinic name'],
     default: 'Sariva Clinic'
   },
+  clinicNameHindi: {
+    type: String,
+    default: 'सारिवा क्लिनिक'
+  },
   address: {
     type: String
   },

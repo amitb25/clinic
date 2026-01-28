@@ -24,6 +24,7 @@ const ClinicSettings = () => {
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     clinicName: '',
+    clinicNameHindi: '',
     address: '',
     city: '',
     state: '',
@@ -76,6 +77,7 @@ const ClinicSettings = () => {
 
         setFormData({
           clinicName: response.data.data.clinicName || '',
+          clinicNameHindi: response.data.data.clinicNameHindi || '',
           address: response.data.data.address || '',
           city: response.data.data.city || '',
           state: response.data.data.state || '',
@@ -167,15 +169,24 @@ const ClinicSettings = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <Input
-              label="Clinic Name"
+              label="Clinic Name (English)"
               name="clinicName"
               value={formData.clinicName}
               onChange={handleChange}
               placeholder="Enter clinic name"
               required
             />
+            <Input
+              label="क्लिनिकचे नाव (मराठी/हिंदी)"
+              name="clinicNameHindi"
+              value={formData.clinicNameHindi}
+              onChange={handleChange}
+              placeholder="उदा. सारिवा क्लिनिक"
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               label="Tagline / Slogan"
               name="tagline"
