@@ -194,7 +194,7 @@ const Medicines = () => {
     {
       header: 'Price',
       render: (medicine) => (
-        <span className="font-medium">${medicine.price}</span>
+        <span className="font-medium">₹{medicine.price}</span>
       )
     },
     {
