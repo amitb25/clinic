@@ -119,7 +119,7 @@ const ClassicTraditionalTemplate = forwardRef(({ prescription, clinicSettings },
                     {dosageToString(med.dosage)}
                     {med.instructions && (
                       <div style={{ fontSize: '10px', color: '#555' }}>
-                        ({translateToMarathi(med.instructions)})
+                        ({med.instructions})
                       </div>
                     )}
                   </td>
