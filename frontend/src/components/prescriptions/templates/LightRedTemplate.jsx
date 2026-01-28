@@ -38,7 +38,7 @@ const LightRedTemplate = forwardRef(({ prescription, clinicSettings }, ref) => {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
                 {/* Left Logo */}
                 <img
-                  src="/clinic-logo-left.png"
+                  src="/clinic-logo-lightred.png"
                   alt="Clinic Logo"
                   style={{ width: '45px', height: '50px', objectFit: 'contain' }}
                 />
