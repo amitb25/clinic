@@ -31,6 +31,94 @@ const INSTRUCTION_OPTIONS = [
   { value: 'प्रभावित भागावर लावा / Apply on Affected Area', label: 'प्रभावित भागावर लावा / Apply on Area' },
 ];
 
+// Translation helper for print/PDF - English to Marathi
+const translateToMarathi = (text) => {
+  if (!text) return 'डॉक्टरांच्या सल्ल्यानुसार';
+
+  const translations = {
+    // Instructions
+    'before food': 'जेवणापूर्वी',
+    'after food': 'जेवणानंतर',
+    'empty stomach': 'रिकाम्या पोटी',
+    'with milk': 'दुधासोबत',
+    'with water': 'पाण्यासोबत',
+    'with lukewarm water': 'कोमट पाण्यासोबत',
+    'with hot water': 'गरम पाण्यासोबत',
+    'before sleep': 'झोपण्यापूर्वी',
+    'at bedtime': 'झोपण्यापूर्वी',
+    'with honey': 'मधासोबत',
+    'with ghee': 'तुपासोबत',
+    'chew': 'चघळून खा',
+    'as needed': 'गरजेनुसार',
+    'sos': 'गरजेनुसार',
+    'external use': 'बाह्य वापरासाठी',
+    'apply on affected area': 'प्रभावित भागावर लावा',
+    'as directed': 'डॉक्टरांच्या सल्ल्यानुसार',
+    'as directed by physician': 'डॉक्टरांच्या सल्ल्यानुसार',
+    'once daily': 'दिवसातून एकदा',
+    'twice daily': 'दिवसातून दोनदा',
+    'thrice daily': 'दिवसातून तीनदा',
+    'morning': 'सकाळी',
+    'afternoon': 'दुपारी',
+    'evening': 'संध्याकाळी',
+    'night': 'रात्री',
+    // Dosage related
+    'tablet': 'गोळी',
+    'tablets': 'गोळ्या',
+    'capsule': 'कॅप्सूल',
+    'capsules': 'कॅप्सूल',
+    'syrup': 'सिरप',
+    'ml': 'मिली',
+    'drops': 'थेंब',
+    'teaspoon': 'चमचा',
+    'tablespoon': 'मोठा चमचा',
+    // Time
+    'days': 'दिवस',
+    'day': 'दिवस',
+    'week': 'आठवडा',
+    'weeks': 'आठवडे',
+    'month': 'महिना',
+    'months': 'महिने',
+    // Gender
+    'male': 'पुरुष',
+    'female': 'स्त्री',
+    'other': 'इतर',
+    // Common
+    'years': 'वर्षे',
+    'yrs': 'वर्षे',
+  };
+
+  let result = text.toLowerCase();
+
+  // Check for exact match first
+  if (translations[result]) {
+    return translations[result];
+  }
+
+  // Replace all matching words
+  Object.keys(translations).forEach(eng => {
+    const regex = new RegExp(eng, 'gi');
+    result = result.replace(regex, translations[eng]);
+  });
+
+  // Capitalize first letter
+  return result.charAt(0).toUpperCase() + result.slice(1);
+};
+
+// Translate dosage to Marathi
+const translateDosage = (dosageStr) => {
+  if (!dosageStr) return '';
+  let result = dosageStr;
+
+  // Replace common patterns
+  result = result.replace(/morning/gi, 'सकाळी');
+  result = result.replace(/afternoon/gi, 'दुपारी');
+  result = result.replace(/evening/gi, 'संध्याकाळी');
+  result = result.replace(/night/gi, 'रात्री');
+
+  return result;
+};
+
 const Prescriptions = () => {
   const { user } = useAuth();
   const [prescriptions, setPrescriptions] = useState([]);
@@ -830,7 +918,7 @@ const Prescriptions = () => {
                     </div>
                     <div style={{ background: '#FEFEFE', padding: '8px 10px', borderRadius: '6px', borderLeft: '3px solid #DC3545' }}>
                       <span style={{ color: '#999', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>वय / Age</span>
-                      <p style={{ margin: '4px 0 0 0', fontWeight: '600', fontSize: '13px', color: '#333' }}>{viewingPrescription.patient?.age} yrs, {viewingPrescription.patient?.gender}</p>
+                      <p style={{ margin: '4px 0 0 0', fontWeight: '600', fontSize: '13px', color: '#333' }}>{viewingPrescription.patient?.age} वर्षे, {translateToMarathi(viewingPrescription.patient?.gender)}</p>
                     </div>
                     <div style={{ background: '#FEFEFE', padding: '8px 10px', borderRadius: '6px', borderLeft: '3px solid #DC3545' }}>
                       <span style={{ color: '#999', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Patient ID</span>
@@ -863,11 +951,11 @@ const Prescriptions = () => {
                   <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0', fontSize: '12px', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 10px rgba(220,53,69,0.1)' }}>
                     <thead>
                       <tr style={{ background: 'linear-gradient(135deg, #DC3545 0%, #C41E3A 100%)' }}>
-                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '30px' }}>#</th>
-                        <th style={{ padding: '10px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px' }}>Medicine Name</th>
-                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '120px' }}>Dosage</th>
-                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '60px' }}>Days</th>
-                        <th style={{ padding: '10px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px' }}>Instructions</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '30px' }}>क्र.</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px' }}>औषधाचे नाव</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '120px' }}>डोस</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '60px' }}>दिवस</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px' }}>सूचना</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -877,14 +965,14 @@ const Prescriptions = () => {
                           <td style={{ padding: '10px 8px', verticalAlign: 'middle', fontWeight: '700', color: '#333', fontSize: '12px', borderBottom: '1px solid #F5E0E0' }}>{med.medicineName || med.medicine?.name}</td>
                           <td style={{ padding: '10px 8px', textAlign: 'center', verticalAlign: 'middle', borderBottom: '1px solid #F5E0E0' }}>
                             <span style={{ background: 'linear-gradient(135deg, #FFF0F0 0%, #FFE8E8 100%)', color: '#C41E3A', padding: '4px 10px', borderRadius: '12px', fontSize: '10px', fontWeight: '700', display: 'inline-block', whiteSpace: 'nowrap', border: '1px solid #F5D0D0' }}>
-                              {dosageToString(med.dosage)}
+                              {translateDosage(dosageToString(med.dosage))}
                             </span>
                           </td>
                           <td style={{ padding: '10px 8px', textAlign: 'center', verticalAlign: 'middle', fontWeight: '600', borderBottom: '1px solid #F5E0E0', color: '#555' }}>
-                            {med.duration} days
+                            {med.duration} दिवस
                           </td>
                           <td style={{ padding: '10px 8px', verticalAlign: 'middle', color: '#666', fontSize: '10px', borderBottom: '1px solid #F5E0E0' }}>
-                            {med.instructions || 'As directed by physician'}
+                            {translateToMarathi(med.instructions)}
                           </td>
                         </tr>
                       ))}
@@ -902,13 +990,13 @@ const Prescriptions = () => {
                   <div style={{ flex: '1' }}>
                     {viewingPrescription.advice && (
                       <div style={{ background: 'linear-gradient(135deg, #FFF8F8 0%, #FFEFEF 100%)', borderRadius: '8px', padding: '10px 15px', borderLeft: '4px solid #DC3545', marginBottom: '10px', boxShadow: '0 2px 6px rgba(220,53,69,0.08)' }}>
-                        <span style={{ color: '#C41E3A', fontSize: '10px', fontWeight: '700', textTransform: 'uppercase' }}>💡 Advice: </span>
+                        <span style={{ color: '#C41E3A', fontSize: '10px', fontWeight: '700', textTransform: 'uppercase' }}>💡 सल्ला / Advice: </span>
                         <span style={{ color: '#333', fontSize: '12px', fontWeight: '600' }}>{viewingPrescription.advice}</span>
                       </div>
                     )}
                     {viewingPrescription.followUpDate && (
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ background: '#DC3545', color: 'white', padding: '3px 8px', borderRadius: '4px', fontSize: '9px', fontWeight: '600' }}>📅 Follow-up</span>
+                        <span style={{ background: '#DC3545', color: 'white', padding: '3px 8px', borderRadius: '4px', fontSize: '9px', fontWeight: '600' }}>📅 पुढील भेट</span>
                         <span style={{ fontWeight: '700', color: '#C41E3A', fontSize: '13px' }}>{formatDate(viewingPrescription.followUpDate)}</span>
                       </div>
                     )}
