@@ -77,7 +77,7 @@ router.get('/:id', protect, async (req, res) => {
 // @access  Private/Admin
 router.post('/', protect, roleCheck('admin'), async (req, res) => {
   try {
-    const { name, email, phone, specialization, qualification, consultationFee, availability, createUser, password } = req.body;
+    const { name, email, phone, specialization, qualification, registrationNo, consultationFee, availability, createUser, password } = req.body;
 
     // Check if doctor with email exists
     const existingDoctor = await Doctor.findOne({ email });
@@ -94,6 +94,7 @@ router.post('/', protect, roleCheck('admin'), async (req, res) => {
       phone,
       specialization,
       qualification,
+      registrationNo,
       consultationFee,
       availability
     });
@@ -130,7 +131,7 @@ router.post('/', protect, roleCheck('admin'), async (req, res) => {
 // @access  Private/Admin
 router.put('/:id', protect, roleCheck('admin'), async (req, res) => {
   try {
-    const { name, email, phone, specialization, qualification, consultationFee, availability, isActive, signature } = req.body;
+    const { name, email, phone, specialization, qualification, registrationNo, consultationFee, availability, isActive, signature } = req.body;
 
     let doctor = await Doctor.findById(req.params.id);
 
@@ -141,7 +142,7 @@ router.put('/:id', protect, roleCheck('admin'), async (req, res) => {
       });
     }
 
-    const updateData = { name, email, phone, specialization, qualification, consultationFee, availability, isActive };
+    const updateData = { name, email, phone, specialization, qualification, registrationNo, consultationFee, availability, isActive };
 
     // Only update signature if provided
     if (signature !== undefined) {
