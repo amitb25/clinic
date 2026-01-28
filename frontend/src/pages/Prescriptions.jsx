@@ -895,7 +895,7 @@ const Prescriptions = () => {
               {/* ===== PRESCRIPTION INFO BAR ===== */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', background: 'linear-gradient(135deg, #FFF8F8 0%, #FFEFEF 100%)', borderRadius: '8px', marginBottom: '15px', marginLeft: '20px', marginRight: '20px', border: '1px solid #F5D0D0' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ background: '#DC3545', color: 'white', padding: '3px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: '600' }}>Rx No.</span>
+                  <span style={{ background: '#FFF0F0', color: '#C41E3A', padding: '3px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: '600', border: '1px solid #F5D0D0' }}>Rx No.</span>
                   <span style={{ fontWeight: '700', color: '#C41E3A', fontSize: '14px' }}>{viewingPrescription.prescriptionId}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -908,7 +908,7 @@ const Prescriptions = () => {
                 {/* ===== PATIENT INFO ===== */}
                 <div style={{ background: 'linear-gradient(135deg, #FFFFFF 0%, #FFF8F8 100%)', borderRadius: '10px', padding: '15px', marginBottom: '15px', border: '1px solid #F0D0D0', boxShadow: '0 2px 8px rgba(220,53,69,0.08)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '2px dashed #F5D0D0' }}>
-                    <span style={{ background: 'linear-gradient(135deg, #DC3545 0%, #C41E3A 100%)', color: 'white', padding: '4px 10px', borderRadius: '15px', fontSize: '11px', fontWeight: '600' }}>👤 Patient</span>
+                    <span style={{ background: 'linear-gradient(135deg, #FFF0F0 0%, #FFE8E8 100%)', color: '#C41E3A', padding: '4px 10px', borderRadius: '15px', fontSize: '11px', fontWeight: '600', border: '1px solid #F5D0D0' }}>👤 Patient</span>
                     <span style={{ color: '#C41E3A', fontSize: '12px', fontWeight: '600' }}>रुग्णाची माहिती</span>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '15px' }}>
@@ -933,8 +933,8 @@ const Prescriptions = () => {
 
                 {/* ===== RX & DIAGNOSIS ===== */}
                 <div style={{ display: 'flex', gap: '12px', marginBottom: '15px', alignItems: 'stretch' }}>
-                  <div style={{ background: 'linear-gradient(135deg, #DC3545 0%, #C41E3A 100%)', borderRadius: '10px', padding: '10px 15px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 10px rgba(220,53,69,0.3)' }}>
-                    <span style={{ fontSize: '28px', fontWeight: '700', color: 'white', fontFamily: 'Georgia, serif' }}>℞</span>
+                  <div style={{ background: 'linear-gradient(135deg, #FFF0F0 0%, #FFE8E8 100%)', borderRadius: '10px', padding: '10px 15px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(220,53,69,0.1)', border: '2px solid #F5D0D0' }}>
+                    <span style={{ fontSize: '28px', fontWeight: '700', color: '#C41E3A', fontFamily: 'Georgia, serif' }}>℞</span>
                   </div>
                   <div style={{ flex: 1, background: 'linear-gradient(135deg, #FFF8F8 0%, #FFEFEF 100%)', borderRadius: '10px', padding: '12px 15px', border: '1px solid #F5D0D0', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <span style={{ color: '#C41E3A', fontSize: '10px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' }}>निदान / Diagnosis</span>
@@ -945,17 +945,17 @@ const Prescriptions = () => {
                 {/* ===== MEDICINES TABLE ===== */}
                 <div style={{ marginBottom: '15px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                    <span style={{ background: 'linear-gradient(135deg, #DC3545 0%, #C41E3A 100%)', color: 'white', padding: '4px 12px', borderRadius: '15px', fontSize: '11px', fontWeight: '600' }}>💊 Medicines</span>
+                    <span style={{ background: 'linear-gradient(135deg, #FFF0F0 0%, #FFE8E8 100%)', color: '#C41E3A', padding: '4px 12px', borderRadius: '15px', fontSize: '11px', fontWeight: '600', border: '1px solid #F5D0D0' }}>💊 Medicines</span>
                     <span style={{ color: '#C41E3A', fontSize: '12px', fontWeight: '600' }}>औषधे</span>
                   </div>
                   <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0', fontSize: '12px', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 10px rgba(220,53,69,0.1)' }}>
                     <thead>
-                      <tr style={{ background: 'linear-gradient(135deg, #DC3545 0%, #C41E3A 100%)' }}>
-                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '30px' }}>क्र.</th>
-                        <th style={{ padding: '10px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px' }}>औषधाचे नाव</th>
-                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '120px' }}>डोस</th>
-                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '60px' }}>दिवस</th>
-                        <th style={{ padding: '10px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px' }}>सूचना</th>
+                      <tr style={{ background: 'linear-gradient(135deg, #FFF0F0 0%, #FFE8E8 100%)', borderBottom: '2px solid #F5D0D0' }}>
+                        <th style={{ padding: '10px 8px', textAlign: 'center', color: '#C41E3A', fontWeight: '700', fontSize: '10px', width: '30px' }}>क्र.</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'left', color: '#C41E3A', fontWeight: '700', fontSize: '10px' }}>औषधाचे नाव</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'center', color: '#C41E3A', fontWeight: '700', fontSize: '10px', width: '120px' }}>डोस</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'center', color: '#C41E3A', fontWeight: '700', fontSize: '10px', width: '60px' }}>दिवस</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'left', color: '#C41E3A', fontWeight: '700', fontSize: '10px' }}>सूचना</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -996,7 +996,7 @@ const Prescriptions = () => {
                     )}
                     {viewingPrescription.followUpDate && (
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ background: '#DC3545', color: 'white', padding: '3px 8px', borderRadius: '4px', fontSize: '9px', fontWeight: '600' }}>📅 पुढील भेट</span>
+                        <span style={{ background: '#FFF0F0', color: '#C41E3A', padding: '3px 8px', borderRadius: '4px', fontSize: '9px', fontWeight: '600', border: '1px solid #F5D0D0' }}>📅 पुढील भेट</span>
                         <span style={{ fontWeight: '700', color: '#C41E3A', fontSize: '13px' }}>{formatDate(viewingPrescription.followUpDate)}</span>
                       </div>
                     )}
