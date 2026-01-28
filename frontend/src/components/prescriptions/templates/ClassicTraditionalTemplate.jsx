@@ -41,9 +41,16 @@ const ClassicTraditionalTemplate = forwardRef(({ prescription, clinicSettings },
 
           {/* Right - Clinic Details */}
           <div style={{ textAlign: 'right', fontSize: '11px', lineHeight: '1.4', minWidth: '200px' }}>
-            <p style={{ margin: 0, fontWeight: '700', fontSize: '14px', color: '#000' }}>
-              {clinicSettings?.clinicNameHindi || clinicSettings?.name || 'Clinic'}
-            </p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px', marginBottom: '2px' }}>
+              <img
+                src="/clinic-logo-left.png"
+                alt="Clinic Logo"
+                style={{ width: '35px', height: '35px', objectFit: 'contain' }}
+              />
+              <p style={{ margin: 0, fontWeight: '700', fontSize: '14px', color: '#000' }}>
+                {clinicSettings?.clinicNameHindi || clinicSettings?.name || 'Clinic'}
+              </p>
+            </div>
             {clinicSettings?.phone && (
               <p style={{ margin: '2px 0', fontSize: '10px', color: '#333' }}>
                 Ph: {clinicSettings.phone}
