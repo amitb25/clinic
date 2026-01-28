@@ -745,14 +745,14 @@ const Prescriptions = () => {
                       )}
                     </div>
 
-                    {/* Center - Clinic Name with Caduceus Logo */}
+                    {/* Center - Clinic Name with Logos */}
                     <div style={{ textAlign: 'center', flex: 1, padding: '0 10px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-                        {/* Left Caduceus Logo */}
+                        {/* Left Logo */}
                         <img
-                          src="/caduceus-logo.png"
-                          alt="Medical Logo"
-                          style={{ width: '40px', height: '50px', objectFit: 'contain' }}
+                          src="/clinic-logo-left.png"
+                          alt="Clinic Logo"
+                          style={{ width: '45px', height: '50px', objectFit: 'contain' }}
                         />
 
                         <h1 style={{
