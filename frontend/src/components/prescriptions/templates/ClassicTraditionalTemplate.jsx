@@ -44,9 +44,6 @@ const ClassicTraditionalTemplate = forwardRef(({ prescription, clinicSettings },
             <p style={{ margin: 0, fontWeight: '700', fontSize: '14px', color: '#000' }}>
               {clinicSettings?.clinicNameHindi || clinicSettings?.name || 'Clinic'}
             </p>
-            <p style={{ margin: '2px 0', fontSize: '10px', color: '#333' }}>
-              {clinicSettings?.address || 'Clinic Address'}
-            </p>
             {clinicSettings?.phone && (
               <p style={{ margin: '2px 0', fontSize: '10px', color: '#333' }}>
                 Ph: {clinicSettings.phone}
@@ -174,7 +171,10 @@ const ClassicTraditionalTemplate = forwardRef(({ prescription, clinicSettings },
 
         {/* Footer Line */}
         <div style={{ borderTop: '1px solid #ccc', marginTop: '15px', paddingTop: '8px', textAlign: 'center' }}>
-          <p style={{ margin: 0, fontSize: '9px', color: '#666', fontStyle: 'italic' }}>
+          <p style={{ margin: 0, fontSize: '10px', color: '#333', fontWeight: '500' }}>
+            {clinicSettings?.address || 'Clinic Address'}
+          </p>
+          <p style={{ margin: '5px 0 0 0', fontSize: '9px', color: '#666', fontStyle: 'italic' }}>
             Substitute with equivalent Generics as required.
           </p>
         </div>
