@@ -89,22 +89,21 @@ const Sidebar = () => {
         {/* Navigation */}
         <nav className="px-4 py-6 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 140px)' }}>
           <ul className="space-y-2">
-            {filteredMenuItems.map((item) => (
-              <li key={item.path}>
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) =>
-                    isActive ? 'sidebar-link-active' : 'sidebar-link'
-                  }
-                  onClick={closeSidebar}
-                >
-                  <item.icon className="w-5 h-5" />
-                  <span>{item.label}</span>
-                </NavLink>
-              </li>
-            ))}
+            {/* Dashboard */}
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? 'sidebar-link-active' : 'sidebar-link'
+                }
+                onClick={closeSidebar}
+              >
+                <LayoutDashboard className="w-5 h-5" />
+                <span>Dashboard</span>
+              </NavLink>
+            </li>
 
-            {/* Master Dropdown - Admin Only */}
+            {/* Master Dropdown - Admin Only (After Dashboard) */}
             {isAdmin() && (
               <li>
                 <button
@@ -147,6 +146,22 @@ const Sidebar = () => {
                 </ul>
               </li>
             )}
+
+            {/* Other Menu Items */}
+            {filteredMenuItems.filter(item => item.path !== '/').map((item) => (
+              <li key={item.path}>
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    isActive ? 'sidebar-link-active' : 'sidebar-link'
+                  }
+                  onClick={closeSidebar}
+                >
+                  <item.icon className="w-5 h-5" />
+                  <span>{item.label}</span>
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
 
