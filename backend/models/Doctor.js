@@ -53,6 +53,10 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add qualification']
   },
+  registrationNo: {
+    type: String,
+    trim: true
+  },
   consultationFee: {
     type: Number,
     default: 0

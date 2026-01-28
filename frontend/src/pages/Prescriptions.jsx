@@ -717,78 +717,91 @@ const Prescriptions = () => {
 
             {/* Printable Content - Traditional Indian Clinic Prescription */}
             <div ref={printRef} className="prescription-print bg-white text-black" style={{ fontFamily: "'Noto Sans Devanagari', 'Segoe UI', Arial, sans-serif", maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', minHeight: 'auto' }}>
-              {/* ===== HEADER - Traditional Indian Style ===== */}
-              <div className="prescription-header" style={{ borderBottom: '3px solid #8B0000', paddingBottom: '10px', marginBottom: '15px' }}>
-                {/* Top Header - Clinic Info */}
-                <div style={{ padding: '15px 20px', background: '#fff' }}>
+              {/* ===== HEADER - Attractive Traditional Style ===== */}
+              <div className="prescription-header" style={{ marginBottom: '15px' }}>
+                {/* Decorative Top Border */}
+                <div style={{ height: '8px', background: 'linear-gradient(90deg, #8B0000 0%, #DC143C 25%, #FF6347 50%, #DC143C 75%, #8B0000 100%)' }}></div>
+
+                {/* Main Header Content */}
+                <div style={{ background: 'linear-gradient(180deg, #FFF5F5 0%, #FFFFFF 100%)', padding: '20px 25px', borderLeft: '4px solid #8B0000', borderRight: '4px solid #8B0000' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     {/* Left - Doctor Details */}
-                    <div style={{ color: '#8B0000', fontSize: '13px', lineHeight: '1.6' }}>
-                      <p style={{ margin: 0, fontWeight: '700', fontSize: '15px' }}>
-                        डॉ. {viewingPrescription.doctor?.name}
-                      </p>
-                      <p style={{ margin: '2px 0', fontWeight: '600' }}>
-                        {viewingPrescription.doctor?.qualification}
-                      </p>
+                    <div style={{ color: '#8B0000', fontSize: '12px', lineHeight: '1.7', minWidth: '180px' }}>
+                      <div style={{ background: 'linear-gradient(135deg, #8B0000 0%, #A52A2A 100%)', color: 'white', padding: '8px 12px', borderRadius: '8px', marginBottom: '8px' }}>
+                        <p style={{ margin: 0, fontWeight: '700', fontSize: '14px' }}>
+                          डॉ. {viewingPrescription.doctor?.name}
+                        </p>
+                        <p style={{ margin: '2px 0 0 0', fontSize: '11px', opacity: 0.9 }}>
+                          {viewingPrescription.doctor?.qualification}
+                        </p>
+                      </div>
                       {viewingPrescription.doctor?.registrationNo && (
-                        <p style={{ margin: '2px 0' }}>
-                          Reg No.: {viewingPrescription.doctor.registrationNo}
+                        <p style={{ margin: '3px 0', fontSize: '11px' }}>
+                          <span style={{ fontWeight: '600' }}>Reg No.:</span> {viewingPrescription.doctor.registrationNo}
                         </p>
                       )}
                       {viewingPrescription.doctor?.phone && (
-                        <p style={{ margin: '2px 0' }}>
-                          M.No.: {viewingPrescription.doctor.phone}
+                        <p style={{ margin: '3px 0', fontSize: '11px' }}>
+                          <span style={{ fontWeight: '600' }}>📞</span> {viewingPrescription.doctor.phone}
                         </p>
                       )}
                     </div>
 
                     {/* Center - Clinic Name */}
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-                        <span style={{ color: '#8B0000', fontSize: '28px', fontFamily: 'serif' }}>❧</span>
-                        <h1 style={{
-                          fontSize: '36px',
-                          fontWeight: '700',
-                          margin: 0,
-                          color: '#8B0000',
-                          fontFamily: "'Noto Sans Devanagari', serif"
-                        }}>
-                          {clinicSettings?.clinicNameHindi || 'सारिवा क्लिनिक'}
-                        </h1>
-                        <span style={{ color: '#8B0000', fontSize: '24px' }}>☤</span>
+                    <div style={{ textAlign: 'center', flex: 1, padding: '0 15px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+                        <div style={{ width: '50px', height: '50px', background: 'linear-gradient(135deg, #8B0000 0%, #DC143C 100%)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(139,0,0,0.3)' }}>
+                          <span style={{ color: 'white', fontSize: '28px' }}>✚</span>
+                        </div>
+                        <div>
+                          <h1 style={{
+                            fontSize: '38px',
+                            fontWeight: '800',
+                            margin: 0,
+                            color: '#8B0000',
+                            fontFamily: "'Noto Sans Devanagari', serif",
+                            textShadow: '2px 2px 4px rgba(139,0,0,0.15)'
+                          }}>
+                            {clinicSettings?.clinicNameHindi || 'सारिवा क्लिनिक'}
+                          </h1>
+                          {clinicSettings?.tagline && (
+                            <p style={{ margin: '2px 0 0 0', color: '#A52A2A', fontSize: '11px', fontStyle: 'italic', letterSpacing: '1px' }}>
+                              ✦ {clinicSettings.tagline} ✦
+                            </p>
+                          )}
+                        </div>
+                        <div style={{ width: '50px', height: '50px', background: 'linear-gradient(135deg, #8B0000 0%, #DC143C 100%)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(139,0,0,0.3)' }}>
+                          <span style={{ color: 'white', fontSize: '22px' }}>☤</span>
+                        </div>
                       </div>
-                      {clinicSettings?.clinicName && clinicSettings?.clinicName !== clinicSettings?.clinicNameHindi && (
-                        <p style={{ margin: '5px 0 0 0', color: '#8B0000', fontSize: '14px', fontWeight: '600' }}>
-                          {clinicSettings.clinicName}
-                        </p>
-                      )}
                     </div>
 
                     {/* Right - Specialization & Timings */}
-                    <div style={{ textAlign: 'right', color: '#8B0000', fontSize: '13px', lineHeight: '1.6' }}>
-                      <p style={{ margin: 0, fontWeight: '600' }}>
-                        - {viewingPrescription.doctor?.specializationHindi || viewingPrescription.doctor?.specialization}
-                      </p>
-                      {clinicSettings?.timings && (
-                        <>
-                          <p style={{ margin: '8px 0 2px 0', fontWeight: '600' }}>वेळ:</p>
-                          <p style={{ margin: '2px 0' }}>सकाळी १०.०० ते २.००</p>
-                          <p style={{ margin: '2px 0' }}>सायं. ५.३० ते ९.३०</p>
-                          <p style={{ margin: '2px 0', fontWeight: '600' }}>रविवार सुरु</p>
-                        </>
-                      )}
+                    <div style={{ textAlign: 'right', color: '#8B0000', fontSize: '11px', lineHeight: '1.6', minWidth: '180px' }}>
+                      <div style={{ background: '#FFF0F0', border: '2px solid #8B0000', borderRadius: '8px', padding: '10px 12px' }}>
+                        <p style={{ margin: 0, fontWeight: '700', fontSize: '12px', borderBottom: '1px dashed #8B0000', paddingBottom: '5px', marginBottom: '5px' }}>
+                          {viewingPrescription.doctor?.specialization}
+                        </p>
+                        <p style={{ margin: '0', fontWeight: '600', fontSize: '10px', color: '#666' }}>वेळ / Timings:</p>
+                        <p style={{ margin: '2px 0', fontSize: '11px' }}>🌅 सकाळी १०:०० - २:००</p>
+                        <p style={{ margin: '2px 0', fontSize: '11px' }}>🌆 सायं. ५:३० - ९:३०</p>
+                        <p style={{ margin: '4px 0 0 0', fontWeight: '700', fontSize: '10px', color: '#228B22' }}>✓ रविवार सुरु</p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Address Line */}
-                {(clinicSettings?.address || clinicSettings?.phone) && (
-                  <div style={{ textAlign: 'center', padding: '8px 20px', borderTop: '1px solid #8B0000', color: '#8B0000', fontSize: '12px' }}>
-                    {clinicSettings?.address && <span>{clinicSettings.address}</span>}
-                    {clinicSettings?.address && clinicSettings?.phone && <span> | </span>}
-                    {clinicSettings?.phone && <span>📞 {clinicSettings.phone}</span>}
-                  </div>
-                )}
+                {/* Address Bar */}
+                <div style={{ background: 'linear-gradient(90deg, #8B0000 0%, #A52A2A 50%, #8B0000 100%)', padding: '10px 20px', textAlign: 'center' }}>
+                  <p style={{ margin: 0, color: 'white', fontSize: '12px', fontWeight: '500', letterSpacing: '0.5px' }}>
+                    📍 {clinicSettings?.address || 'Clinic Address'}
+                    {clinicSettings?.phone && <span style={{ marginLeft: '15px' }}>📞 {clinicSettings.phone}</span>}
+                    {clinicSettings?.email && <span style={{ marginLeft: '15px' }}>✉️ {clinicSettings.email}</span>}
+                  </p>
+                </div>
+
+                {/* Decorative Bottom Border */}
+                <div style={{ height: '4px', background: 'linear-gradient(90deg, #FFD700 0%, #FFA500 25%, #FFD700 50%, #FFA500 75%, #FFD700 100%)' }}></div>
               </div>
 
               {/* ===== PRESCRIPTION INFO BAR ===== */}

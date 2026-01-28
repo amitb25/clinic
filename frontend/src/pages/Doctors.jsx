@@ -24,6 +24,7 @@ const Doctors = () => {
     phone: '',
     specialization: '',
     qualification: '',
+    registrationNo: '',
     consultationFee: '',
     availability: [],
     createUser: false,
@@ -97,6 +98,7 @@ const Doctors = () => {
         phone: doctor.phone,
         specialization: doctor.specialization,
         qualification: doctor.qualification,
+        registrationNo: doctor.registrationNo || '',
         consultationFee: doctor.consultationFee,
         availability: doctor.availability || [],
         createUser: false,
@@ -111,6 +113,7 @@ const Doctors = () => {
         phone: '',
         specialization: '',
         qualification: '',
+        registrationNo: '',
         consultationFee: '',
         availability: [],
         createUser: false,
@@ -398,7 +401,14 @@ const Doctors = () => {
               required
             />
             <Input
-              label="Consultation Fee"
+              label="Registration No. (Reg No.)"
+              name="registrationNo"
+              value={formData.registrationNo}
+              onChange={handleChange}
+              placeholder="e.g., I-93691-A"
+            />
+            <Input
+              label="Consultation Fee (₹)"
               type="number"
               name="consultationFee"
               value={formData.consultationFee}
