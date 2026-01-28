@@ -805,84 +805,86 @@ const Prescriptions = () => {
               </div>
 
               {/* ===== PRESCRIPTION INFO BAR ===== */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', background: '#fff5f5', borderLeft: '4px solid #8B0000', marginBottom: '15px', marginLeft: '20px', marginRight: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', background: 'linear-gradient(135deg, #FFF8F8 0%, #FFEFEF 100%)', borderRadius: '8px', marginBottom: '15px', marginLeft: '20px', marginRight: '20px', border: '1px solid #F5D0D0' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#666', fontSize: '12px' }}>Prescription No:</span>
-                  <span style={{ fontWeight: '700', color: '#8B0000', fontSize: '14px' }}>{viewingPrescription.prescriptionId}</span>
+                  <span style={{ background: '#DC3545', color: 'white', padding: '3px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: '600' }}>Rx No.</span>
+                  <span style={{ fontWeight: '700', color: '#C41E3A', fontSize: '14px' }}>{viewingPrescription.prescriptionId}</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#666', fontSize: '12px' }}>Date:</span>
-                  <span style={{ fontWeight: '600', fontSize: '13px' }}>{formatDateTime(viewingPrescription.date)}</span>
+                  <span style={{ color: '#888', fontSize: '11px' }}>📅</span>
+                  <span style={{ fontWeight: '600', fontSize: '12px', color: '#555' }}>{formatDateTime(viewingPrescription.date)}</span>
                 </div>
               </div>
 
               <div className="prescription-content" style={{ padding: '0 20px 15px', flex: '1' }}>
                 {/* ===== PATIENT INFO ===== */}
-                <div style={{ border: '1px solid #8B0000', borderRadius: '8px', padding: '12px 15px', marginBottom: '15px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px', paddingBottom: '8px', borderBottom: '1px solid #8B0000' }}>
-                    <h3 style={{ color: '#8B0000', fontSize: '13px', fontWeight: '700', margin: 0 }}>रुग्णाची माहिती / Patient Information</h3>
+                <div style={{ background: 'linear-gradient(135deg, #FFFFFF 0%, #FFF8F8 100%)', borderRadius: '10px', padding: '15px', marginBottom: '15px', border: '1px solid #F0D0D0', boxShadow: '0 2px 8px rgba(220,53,69,0.08)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', paddingBottom: '10px', borderBottom: '2px dashed #F5D0D0' }}>
+                    <span style={{ background: 'linear-gradient(135deg, #DC3545 0%, #C41E3A 100%)', color: 'white', padding: '4px 10px', borderRadius: '15px', fontSize: '11px', fontWeight: '600' }}>👤 Patient</span>
+                    <span style={{ color: '#C41E3A', fontSize: '12px', fontWeight: '600' }}>रुग्णाची माहिती</span>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
-                    <div>
-                      <span style={{ color: '#666', fontSize: '10px' }}>नाव / Name</span>
-                      <p style={{ margin: '2px 0 0 0', fontWeight: '700', fontSize: '13px', color: '#000' }}>{viewingPrescription.patient?.name}</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '15px' }}>
+                    <div style={{ background: '#FEFEFE', padding: '8px 10px', borderRadius: '6px', borderLeft: '3px solid #DC3545' }}>
+                      <span style={{ color: '#999', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>नाव / Name</span>
+                      <p style={{ margin: '4px 0 0 0', fontWeight: '700', fontSize: '13px', color: '#333' }}>{viewingPrescription.patient?.name}</p>
                     </div>
-                    <div>
-                      <span style={{ color: '#666', fontSize: '10px' }}>वय / Age</span>
-                      <p style={{ margin: '2px 0 0 0', fontWeight: '600', fontSize: '13px', color: '#000' }}>{viewingPrescription.patient?.age} वर्षे, {viewingPrescription.patient?.gender}</p>
+                    <div style={{ background: '#FEFEFE', padding: '8px 10px', borderRadius: '6px', borderLeft: '3px solid #DC3545' }}>
+                      <span style={{ color: '#999', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>वय / Age</span>
+                      <p style={{ margin: '4px 0 0 0', fontWeight: '600', fontSize: '13px', color: '#333' }}>{viewingPrescription.patient?.age} yrs, {viewingPrescription.patient?.gender}</p>
                     </div>
-                    <div>
-                      <span style={{ color: '#666', fontSize: '10px' }}>Patient ID</span>
-                      <p style={{ margin: '2px 0 0 0', fontWeight: '600', fontSize: '13px', color: '#8B0000' }}>{viewingPrescription.patient?.patientId}</p>
+                    <div style={{ background: '#FEFEFE', padding: '8px 10px', borderRadius: '6px', borderLeft: '3px solid #DC3545' }}>
+                      <span style={{ color: '#999', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Patient ID</span>
+                      <p style={{ margin: '4px 0 0 0', fontWeight: '700', fontSize: '13px', color: '#C41E3A' }}>{viewingPrescription.patient?.patientId}</p>
                     </div>
-                    <div>
-                      <span style={{ color: '#666', fontSize: '10px' }}>फोन / Phone</span>
-                      <p style={{ margin: '2px 0 0 0', fontWeight: '600', fontSize: '13px', color: '#000' }}>{viewingPrescription.patient?.phone || '-'}</p>
+                    <div style={{ background: '#FEFEFE', padding: '8px 10px', borderRadius: '6px', borderLeft: '3px solid #DC3545' }}>
+                      <span style={{ color: '#999', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>फोन / Phone</span>
+                      <p style={{ margin: '4px 0 0 0', fontWeight: '600', fontSize: '13px', color: '#333' }}>{viewingPrescription.patient?.phone || '-'}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* ===== RX & DIAGNOSIS ===== */}
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '12px', alignItems: 'center' }}>
-                  <div style={{ background: '#8B0000', borderRadius: '6px', padding: '6px 12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '24px', fontWeight: '700', color: 'white', fontFamily: 'Georgia, serif' }}>℞</span>
+                <div style={{ display: 'flex', gap: '12px', marginBottom: '15px', alignItems: 'stretch' }}>
+                  <div style={{ background: 'linear-gradient(135deg, #DC3545 0%, #C41E3A 100%)', borderRadius: '10px', padding: '10px 15px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 10px rgba(220,53,69,0.3)' }}>
+                    <span style={{ fontSize: '28px', fontWeight: '700', color: 'white', fontFamily: 'Georgia, serif' }}>℞</span>
                   </div>
-                  <div style={{ flex: 1, background: '#fff5f5', borderRadius: '6px', padding: '8px 12px', borderLeft: '3px solid #8B0000' }}>
-                    <span style={{ color: '#8B0000', fontSize: '10px', fontWeight: '600', marginRight: '8px' }}>निदान / Diagnosis:</span>
-                    <span style={{ color: '#000', fontSize: '14px', fontWeight: '700' }}>{viewingPrescription.diagnosis}</span>
+                  <div style={{ flex: 1, background: 'linear-gradient(135deg, #FFF8F8 0%, #FFEFEF 100%)', borderRadius: '10px', padding: '12px 15px', border: '1px solid #F5D0D0', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <span style={{ color: '#C41E3A', fontSize: '10px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' }}>निदान / Diagnosis</span>
+                    <span style={{ color: '#333', fontSize: '15px', fontWeight: '700', marginTop: '3px' }}>{viewingPrescription.diagnosis}</span>
                   </div>
                 </div>
 
                 {/* ===== MEDICINES TABLE ===== */}
                 <div style={{ marginBottom: '15px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <h3 style={{ color: '#8B0000', fontSize: '12px', fontWeight: '700', margin: 0 }}>औषधे / Medicines</h3>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+                    <span style={{ background: 'linear-gradient(135deg, #DC3545 0%, #C41E3A 100%)', color: 'white', padding: '4px 12px', borderRadius: '15px', fontSize: '11px', fontWeight: '600' }}>💊 Medicines</span>
+                    <span style={{ color: '#C41E3A', fontSize: '12px', fontWeight: '600' }}>औषधे</span>
                   </div>
-                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', border: '1px solid #8B0000' }}>
+                  <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0', fontSize: '12px', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 10px rgba(220,53,69,0.1)' }}>
                     <thead>
-                      <tr style={{ background: '#8B0000' }}>
-                        <th style={{ padding: '6px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '30px', borderRight: '1px solid #fff' }}>#</th>
-                        <th style={{ padding: '6px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px', borderRight: '1px solid #fff' }}>औषधाचे नाव / Medicine</th>
-                        <th style={{ padding: '6px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '120px', borderRight: '1px solid #fff' }}>डोस / Dosage</th>
-                        <th style={{ padding: '6px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '60px', borderRight: '1px solid #fff' }}>दिवस</th>
-                        <th style={{ padding: '6px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px' }}>सूचना / Instructions</th>
+                      <tr style={{ background: 'linear-gradient(135deg, #DC3545 0%, #C41E3A 100%)' }}>
+                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '30px' }}>#</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px' }}>Medicine Name</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '120px' }}>Dosage</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'center', color: 'white', fontWeight: '600', fontSize: '10px', width: '60px' }}>Days</th>
+                        <th style={{ padding: '10px 8px', textAlign: 'left', color: 'white', fontWeight: '600', fontSize: '10px' }}>Instructions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {viewingPrescription.medicines?.map((med, idx) => (
-                        <tr key={idx} style={{ background: idx % 2 === 0 ? '#ffffff' : '#fff5f5', borderBottom: '1px solid #ddd' }}>
-                          <td style={{ padding: '6px 8px', textAlign: 'center', verticalAlign: 'middle', fontWeight: '700', color: '#8B0000', fontSize: '12px', borderRight: '1px solid #ddd' }}>{idx + 1}</td>
-                          <td style={{ padding: '6px 8px', verticalAlign: 'middle', fontWeight: '700', color: '#000', fontSize: '12px', borderRight: '1px solid #ddd' }}>{med.medicineName || med.medicine?.name}</td>
-                          <td style={{ padding: '6px 8px', textAlign: 'center', verticalAlign: 'middle', borderRight: '1px solid #ddd' }}>
-                            <span style={{ background: '#fff5f5', color: '#8B0000', padding: '3px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: '700', display: 'inline-block', whiteSpace: 'nowrap', border: '1px solid #8B0000' }}>
+                        <tr key={idx} style={{ background: idx % 2 === 0 ? '#FFFFFF' : '#FFF8F8', transition: 'background 0.2s' }}>
+                          <td style={{ padding: '10px 8px', textAlign: 'center', verticalAlign: 'middle', fontWeight: '700', color: '#C41E3A', fontSize: '12px', borderBottom: '1px solid #F5E0E0' }}>{idx + 1}</td>
+                          <td style={{ padding: '10px 8px', verticalAlign: 'middle', fontWeight: '700', color: '#333', fontSize: '12px', borderBottom: '1px solid #F5E0E0' }}>{med.medicineName || med.medicine?.name}</td>
+                          <td style={{ padding: '10px 8px', textAlign: 'center', verticalAlign: 'middle', borderBottom: '1px solid #F5E0E0' }}>
+                            <span style={{ background: 'linear-gradient(135deg, #FFF0F0 0%, #FFE8E8 100%)', color: '#C41E3A', padding: '4px 10px', borderRadius: '12px', fontSize: '10px', fontWeight: '700', display: 'inline-block', whiteSpace: 'nowrap', border: '1px solid #F5D0D0' }}>
                               {dosageToString(med.dosage)}
                             </span>
                           </td>
-                          <td style={{ padding: '6px 8px', textAlign: 'center', verticalAlign: 'middle', fontWeight: '600', borderRight: '1px solid #ddd' }}>
-                            {med.duration} दिवस
+                          <td style={{ padding: '10px 8px', textAlign: 'center', verticalAlign: 'middle', fontWeight: '600', borderBottom: '1px solid #F5E0E0', color: '#555' }}>
+                            {med.duration} days
                           </td>
-                          <td style={{ padding: '6px 8px', verticalAlign: 'middle', color: '#333', fontSize: '10px' }}>
-                            {med.instructions || 'डॉक्टरांच्या सल्ल्यानुसार'}
+                          <td style={{ padding: '10px 8px', verticalAlign: 'middle', color: '#666', fontSize: '10px', borderBottom: '1px solid #F5E0E0' }}>
+                            {med.instructions || 'As directed by physician'}
                           </td>
                         </tr>
                       ))}
@@ -895,20 +897,20 @@ const Prescriptions = () => {
               {/* ===== BOTTOM SECTION - Advice, Follow-up, Signature ===== */}
               <div className="prescription-bottom" style={{ marginTop: 'auto' }}>
                 {/* Advice & Signature Row */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', padding: '12px 20px', gap: '20px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', padding: '15px 20px', gap: '20px' }}>
                   {/* Left Side - Advice & Follow-up */}
                   <div style={{ flex: '1' }}>
                     {viewingPrescription.advice && (
-                      <div style={{ background: '#fff5f5', borderRadius: '6px', padding: '8px 12px', borderLeft: '3px solid #8B0000', marginBottom: '8px' }}>
-                        <span style={{ color: '#8B0000', fontSize: '10px', fontWeight: '700' }}>सल्ला / Advice: </span>
-                        <span style={{ color: '#000', fontSize: '11px', fontWeight: '600' }}>{viewingPrescription.advice}</span>
+                      <div style={{ background: 'linear-gradient(135deg, #FFF8F8 0%, #FFEFEF 100%)', borderRadius: '8px', padding: '10px 15px', borderLeft: '4px solid #DC3545', marginBottom: '10px', boxShadow: '0 2px 6px rgba(220,53,69,0.08)' }}>
+                        <span style={{ color: '#C41E3A', fontSize: '10px', fontWeight: '700', textTransform: 'uppercase' }}>💡 Advice: </span>
+                        <span style={{ color: '#333', fontSize: '12px', fontWeight: '600' }}>{viewingPrescription.advice}</span>
                       </div>
                     )}
                     {viewingPrescription.followUpDate && (
-                      <p style={{ margin: 0 }}>
-                        <span style={{ color: '#666', fontSize: '11px', fontWeight: '600' }}>पुढील भेट / Follow-up: </span>
-                        <span style={{ fontWeight: '700', color: '#8B0000', fontSize: '13px' }}>{formatDate(viewingPrescription.followUpDate)}</span>
-                      </p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ background: '#DC3545', color: 'white', padding: '3px 8px', borderRadius: '4px', fontSize: '9px', fontWeight: '600' }}>📅 Follow-up</span>
+                        <span style={{ fontWeight: '700', color: '#C41E3A', fontSize: '13px' }}>{formatDate(viewingPrescription.followUpDate)}</span>
+                      </div>
                     )}
                   </div>
 
