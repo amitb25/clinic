@@ -55,7 +55,7 @@ const LightRedTemplate = forwardRef(({ prescription, clinicSettings }, ref) => {
 
                 {/* Right Caduceus Logo */}
                 <img
-                  src="/caduceus-logo.png"
+                  src="/caduceus-logo-red.png"
                   alt="Medical Logo"
                   style={{ width: '40px', height: '50px', objectFit: 'contain' }}
                 />
