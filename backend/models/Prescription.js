@@ -48,6 +48,9 @@ const prescriptionSchema = new mongoose.Schema({
     required: [true, 'Please add diagnosis']
   },
   medicines: [medicineItemSchema],
+  dietPlan: {
+    type: String
+  },
   advice: {
     type: String
   },

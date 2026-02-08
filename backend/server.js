@@ -28,6 +28,7 @@ app.use('/api/dashboard', require('./routes/dashboard'));
 app.use('/api/qualifications', require('./routes/qualifications'));
 app.use('/api/specializations', require('./routes/specializations'));
 app.use('/api/clinic-settings', require('./routes/clinicSettings'));
+app.use('/api/ai', require('./routes/ai'));
 
 // Health check
 app.get('/api/health', (req, res) => {

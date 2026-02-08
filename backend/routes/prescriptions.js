@@ -86,7 +86,7 @@ router.get('/:id', protect, async (req, res) => {
 // @access  Private
 router.post('/', protect, async (req, res) => {
   try {
-    const { patient, doctor, date, diagnosis, medicines, advice, followUpDate } = req.body;
+    const { patient, doctor, date, diagnosis, medicines, dietPlan, advice, followUpDate } = req.body;
 
     const prescription = await Prescription.create({
       patient,
@@ -94,6 +94,7 @@ router.post('/', protect, async (req, res) => {
       date: date || new Date(),
       diagnosis,
       medicines,
+      dietPlan,
       advice,
       followUpDate
     });
@@ -121,7 +122,7 @@ router.post('/', protect, async (req, res) => {
 // @access  Private
 router.put('/:id', protect, async (req, res) => {
   try {
-    const { diagnosis, medicines, advice, followUpDate } = req.body;
+    const { diagnosis, medicines, dietPlan, advice, followUpDate } = req.body;
 
     let prescription = await Prescription.findById(req.params.id);
 
@@ -134,7 +135,7 @@ router.put('/:id', protect, async (req, res) => {
 
     prescription = await Prescription.findByIdAndUpdate(
       req.params.id,
-      { diagnosis, medicines, advice, followUpDate },
+      { diagnosis, medicines, dietPlan, advice, followUpDate },
       { new: true, runValidators: true }
     )
       .populate('patient')

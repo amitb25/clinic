@@ -155,6 +155,18 @@ const BlueProfessionalTemplate = forwardRef(({ prescription, clinicSettings }, r
 
       </div>
 
+      {/* ===== DIET PLAN ===== */}
+      {prescription.dietPlan && (
+        <div style={{ padding: '0 20px', marginBottom: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <span style={{ background: '#1E40AF', color: '#fff', padding: '4px 12px', borderRadius: '4px', fontSize: '10px', fontWeight: '600' }}>DIET PLAN</span>
+          </div>
+          <div style={{ background: '#EFF6FF', borderRadius: '8px', padding: '12px 15px', border: '1px solid #BFDBFE' }}>
+            <p style={{ margin: 0, color: '#1E293B', fontSize: '11px', whiteSpace: 'pre-line', lineHeight: '1.5' }}>{prescription.dietPlan}</p>
+          </div>
+        </div>
+      )}
+
       {/* ===== BOTTOM SECTION ===== */}
       <div className="prescription-bottom" style={{ marginTop: 'auto' }}>
         {/* Advice & Signature Row */}

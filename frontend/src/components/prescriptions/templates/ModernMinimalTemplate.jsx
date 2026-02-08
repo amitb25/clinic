@@ -135,6 +135,16 @@ const ModernMinimalTemplate = forwardRef(({ prescription, clinicSettings }, ref)
 
       </div>
 
+      {/* ===== DIET PLAN ===== */}
+      {prescription.dietPlan && (
+        <div style={{ padding: '0 25px', marginBottom: '10px' }}>
+          <div style={{ padding: '10px 15px', background: '#F0FDF4', borderRadius: '6px', borderLeft: '3px solid #10B981' }}>
+            <span style={{ color: '#9CA3AF', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Diet Plan</span>
+            <p style={{ margin: '4px 0 0 0', color: '#374151', fontSize: '11px', fontWeight: '500', whiteSpace: 'pre-line', lineHeight: '1.5' }}>{prescription.dietPlan}</p>
+          </div>
+        </div>
+      )}
+
       {/* ===== BOTTOM SECTION ===== */}
       <div className="prescription-bottom" style={{ marginTop: 'auto' }}>
         {/* Advice & Signature Row */}

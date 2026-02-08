@@ -134,6 +134,14 @@ const ClassicTraditionalTemplate = forwardRef(({ prescription, clinicSettings },
 
       </div>
 
+      {/* ===== DIET PLAN ===== */}
+      {prescription.dietPlan && (
+        <div style={{ padding: '0 15px', marginBottom: '10px' }}>
+          <p style={{ margin: 0, fontSize: '11px', fontWeight: '700' }}>Diet Plan:</p>
+          <p style={{ margin: '3px 0 0 0', fontSize: '11px', whiteSpace: 'pre-line', lineHeight: '1.5' }}>{prescription.dietPlan}</p>
+        </div>
+      )}
+
       {/* ===== BOTTOM SECTION ===== */}
       <div className="prescription-bottom" style={{ marginTop: 'auto', padding: '0 15px 15px' }}>
 

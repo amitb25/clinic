@@ -177,6 +177,18 @@ const LightRedTemplate = forwardRef(({ prescription, clinicSettings }, ref) => {
 
       </div>
 
+      {/* ===== DIET PLAN SECTION ===== */}
+      {prescription.dietPlan && (
+        <div style={{ padding: '0 20px', marginBottom: '10px' }}>
+          <div style={{ borderRadius: '8px', padding: '10px 15px', border: '1px solid #C41E3A' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px', paddingBottom: '6px', borderBottom: '1px dashed #C41E3A' }}>
+              <span style={{ color: '#C41E3A', padding: '3px 8px', borderRadius: '10px', fontSize: '10px', fontWeight: '600', border: '1px solid #C41E3A' }}>Diet Plan</span>
+            </div>
+            <p style={{ margin: 0, fontSize: '11px', color: '#333', whiteSpace: 'pre-line', lineHeight: '1.5' }}>{prescription.dietPlan}</p>
+          </div>
+        </div>
+      )}
+
       {/* ===== BOTTOM SECTION - Advice, Follow-up, Signature ===== */}
       <div className="prescription-bottom" style={{ marginTop: 'auto' }}>
         {/* Advice & Signature Row */}

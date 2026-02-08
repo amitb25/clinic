@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Plus, Search, Eye, Edit2, Printer, Download, FileText, Stethoscope, Phone, Mail } from 'lucide-react';
+import { Plus, Search, Eye, Edit2, Printer, Download, FileText, Stethoscope, Phone, Mail, Sparkles, Loader2, Check, X } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -143,9 +143,16 @@ const Prescriptions = () => {
     doctor: '',
     diagnosis: '',
     medicines: [{ medicine: '', medicineName: '', dosage: { morning: false, afternoon: false, night: false }, duration: '', instructions: '' }],
+    dietPlan: '',
     advice: '',
     followUpDate: ''
   });
+
+  // AI Diet Plan states
+  const [aiDietPlan, setAiDietPlan] = useState('');
+  const [dietPlanLoading, setDietPlanLoading] = useState(false);
+  const [dietPlanError, setDietPlanError] = useState('');
+  const diagnosisTimerRef = useRef(null);
 
   useEffect(() => {
     fetchPrescriptions();
@@ -204,11 +211,57 @@ const Prescriptions = () => {
     }
   };
 
+  const fetchAiDietPlan = async (diagnosis) => {
+    if (!diagnosis || diagnosis.trim().length < 3) {
+      setAiDietPlan('');
+      return;
+    }
+    try {
+      setDietPlanLoading(true);
+      setDietPlanError('');
+      const selectedPatient = patients.find(p => p._id === formData.patient);
+      const response = await api.post('/ai/diet-plan', {
+        diagnosis: diagnosis.trim(),
+        patientAge: selectedPatient?.age,
+        patientGender: selectedPatient?.gender
+      });
+      setAiDietPlan(response.data.data.dietPlan);
+    } catch (error) {
+      console.error('Error fetching AI diet plan:', error);
+      setDietPlanError(error.response?.data?.message || 'Failed to generate diet plan');
+    } finally {
+      setDietPlanLoading(false);
+    }
+  };
+
+  const handleDiagnosisChange = (e) => {
+    const { value } = e.target;
+    setFormData(prev => ({ ...prev, diagnosis: value }));
+
+    // Debounce AI call - wait 2 seconds after user stops typing
+    if (diagnosisTimerRef.current) {
+      clearTimeout(diagnosisTimerRef.current);
+    }
+    diagnosisTimerRef.current = setTimeout(() => {
+      fetchAiDietPlan(value);
+    }, 2000);
+  };
+
+  const acceptDietPlan = () => {
+    setFormData(prev => ({ ...prev, dietPlan: aiDietPlan }));
+    setAiDietPlan('');
+  };
+
+  const dismissDietPlan = () => {
+    setAiDietPlan('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const data = {
         ...formData,
+        dietPlan: formData.dietPlan,
         medicines: formData.medicines.filter(m => m.medicine).map(m => ({
           ...m,
           medicineName: medicines.find(med => med._id === m.medicine)?.name || ''
@@ -242,6 +295,7 @@ const Prescriptions = () => {
           duration: m.duration || '',
           instructions: m.instructions || ''
         })) || [{ medicine: '', medicineName: '', dosage: { morning: false, afternoon: false, night: false }, duration: '', instructions: '' }],
+        dietPlan: prescription.dietPlan || '',
         advice: prescription.advice || '',
         followUpDate: prescription.followUpDate?.split('T')[0] || ''
       });
@@ -252,10 +306,14 @@ const Prescriptions = () => {
         doctor: user?.doctor?._id || '',
         diagnosis: '',
         medicines: [{ medicine: '', medicineName: '', dosage: { morning: false, afternoon: false, night: false }, duration: '', instructions: '' }],
+        dietPlan: '',
         advice: '',
         followUpDate: ''
       });
     }
+    setAiDietPlan('');
+    setDietPlanError('');
+    setDietPlanLoading(false);
     setShowModal(true);
   };
 
@@ -670,11 +728,67 @@ const Prescriptions = () => {
             <textarea
               name="diagnosis"
               value={formData.diagnosis}
-              onChange={handleChange}
+              onChange={handleDiagnosisChange}
               required
               rows={3}
               className="input"
               placeholder="Enter diagnosis..."
+            />
+          </div>
+
+          {/* AI Diet Plan Suggestion */}
+          {dietPlanLoading && (
+            <div className="flex items-center gap-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+              <Loader2 className="w-4 h-4 text-blue-500 animate-spin" />
+              <span className="text-sm text-blue-600 dark:text-blue-400">Generating AI Diet Plan...</span>
+            </div>
+          )}
+
+          {dietPlanError && (
+            <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+              <X className="w-4 h-4 text-red-500" />
+              <span className="text-sm text-red-600 dark:text-red-400">{dietPlanError}</span>
+            </div>
+          )}
+
+          {aiDietPlan && !dietPlanLoading && (
+            <div className="p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border border-emerald-200 dark:border-emerald-800">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-500" />
+                  <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">AI Suggested Diet Plan</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={acceptDietPlan}
+                    className="flex items-center gap-1 px-3 py-1 text-xs font-medium text-white bg-emerald-500 rounded-md hover:bg-emerald-600 transition-colors"
+                  >
+                    <Check className="w-3 h-3" /> Accept
+                  </button>
+                  <button
+                    type="button"
+                    onClick={dismissDietPlan}
+                    className="flex items-center gap-1 px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors"
+                  >
+                    <X className="w-3 h-3" /> Dismiss
+                  </button>
+                </div>
+              </div>
+              <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">{aiDietPlan}</p>
+            </div>
+          )}
+
+          {/* Diet Plan Field */}
+          <div>
+            <label className="label">Diet Plan {formData.dietPlan && <span className="text-emerald-500 text-xs ml-1">(AI Generated)</span>}</label>
+            <textarea
+              name="dietPlan"
+              value={formData.dietPlan}
+              onChange={handleChange}
+              rows={4}
+              className="input"
+              placeholder="Diet plan will be auto-generated by AI based on diagnosis, or enter manually..."
             />
           </div>
 
