@@ -139,22 +139,12 @@ const ModernMinimalTemplate = forwardRef(({ prescription, clinicSettings }, ref)
       <div className="prescription-bottom" style={{ marginTop: 'auto' }}>
         {/* Advice & Signature Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', padding: '15px 25px', gap: '30px' }}>
-          {/* Left Side - Advice, Diet Plan & Follow-up */}
+          {/* Left Side - Advice & Follow-up */}
           <div style={{ flex: '1' }}>
-            {(prescription.advice || prescription.dietPlan) && (
+            {prescription.advice && (
               <div style={{ marginBottom: '10px', padding: '10px 15px', background: '#F9FAFB', borderRadius: '6px', borderLeft: '3px solid #10B981' }}>
-                {prescription.advice && (
-                  <div>
-                    <span style={{ color: '#9CA3AF', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Advice</span>
-                    <p style={{ margin: '4px 0 0 0', color: '#374151', fontSize: '11px', fontWeight: '500' }}>{prescription.advice}</p>
-                  </div>
-                )}
-                {prescription.dietPlan && (
-                  <div style={{ marginTop: prescription.advice ? '6px' : '0' }}>
-                    <span style={{ color: '#9CA3AF', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Diet Plan</span>
-                    <p style={{ margin: '4px 0 0 0', color: '#374151', fontSize: '10px', fontWeight: '500', whiteSpace: 'pre-line', lineHeight: '1.4' }}>{prescription.dietPlan}</p>
-                  </div>
-                )}
+                <span style={{ color: '#9CA3AF', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Advice</span>
+                <p style={{ margin: '4px 0 0 0', color: '#374151', fontSize: '11px', fontWeight: '500' }}>{prescription.advice}</p>
               </div>
             )}
             {prescription.followUpDate && (
@@ -197,6 +187,28 @@ const ModernMinimalTemplate = forwardRef(({ prescription, clinicSettings }, ref)
           </p>
         </div>
       </div>
+
+      {/* ===== DIET PLAN - SEPARATE PAGE ===== */}
+      {prescription.dietPlan && (
+        <div style={{ pageBreakBefore: 'always', padding: '30px 25px', fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" }}>
+          <div style={{ textAlign: 'center', marginBottom: '20px', paddingBottom: '15px', borderBottom: '2px solid #10B981' }}>
+            <h2 style={{ margin: 0, color: '#111827', fontSize: '18px', fontWeight: '300', letterSpacing: '1px' }}>Diet Plan / आहार योजना</h2>
+            <p style={{ margin: '5px 0 0 0', fontSize: '11px', color: '#6B7280' }}>
+              Patient: <strong>{prescription.patient?.name}</strong> | Rx: <strong>{prescription.prescriptionId}</strong> | Date: <strong>{formatDate(prescription.date)}</strong>
+            </p>
+            <p style={{ margin: '3px 0 0 0', fontSize: '11px', color: '#9CA3AF' }}>
+              Diagnosis: <strong>{prescription.diagnosis}</strong>
+            </p>
+          </div>
+          <div style={{ padding: '15px', background: '#F0FDF4', borderRadius: '8px', borderLeft: '3px solid #10B981', lineHeight: '1.6' }}>
+            <p style={{ margin: 0, fontSize: '12px', color: '#374151', whiteSpace: 'pre-line' }}>{prescription.dietPlan}</p>
+          </div>
+          <div style={{ marginTop: '20px', textAlign: 'right' }}>
+            <p style={{ margin: 0, fontWeight: '600', color: '#111827', fontSize: '12px' }}>Dr. {prescription.doctor?.name}</p>
+            <p style={{ margin: '2px 0 0 0', fontSize: '10px', color: '#6B7280' }}>{prescription.doctor?.qualification}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 });

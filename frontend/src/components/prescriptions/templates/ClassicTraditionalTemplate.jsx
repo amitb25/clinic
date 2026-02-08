@@ -137,21 +137,11 @@ const ClassicTraditionalTemplate = forwardRef(({ prescription, clinicSettings },
       {/* ===== BOTTOM SECTION ===== */}
       <div className="prescription-bottom" style={{ marginTop: 'auto', padding: '0 15px 15px' }}>
 
-        {/* Advice & Diet Plan */}
-        {(prescription.advice || prescription.dietPlan) && (
+        {/* Advice */}
+        {prescription.advice && (
           <div style={{ marginBottom: '10px' }}>
-            {prescription.advice && (
-              <div>
-                <p style={{ margin: 0, fontSize: '11px', fontWeight: '700' }}>Advice:</p>
-                <p style={{ margin: '3px 0 0 0', fontSize: '11px' }}>* {prescription.advice}</p>
-              </div>
-            )}
-            {prescription.dietPlan && (
-              <div style={{ marginTop: prescription.advice ? '6px' : '0' }}>
-                <p style={{ margin: 0, fontSize: '11px', fontWeight: '700' }}>Diet Plan:</p>
-                <p style={{ margin: '3px 0 0 0', fontSize: '10px', whiteSpace: 'pre-line', lineHeight: '1.4' }}>{prescription.dietPlan}</p>
-              </div>
-            )}
+            <p style={{ margin: 0, fontSize: '11px', fontWeight: '700' }}>Advice:</p>
+            <p style={{ margin: '3px 0 0 0', fontSize: '11px' }}>* {prescription.advice}</p>
           </div>
         )}
 
@@ -196,6 +186,28 @@ const ClassicTraditionalTemplate = forwardRef(({ prescription, clinicSettings },
           </p>
         </div>
       </div>
+
+      {/* ===== DIET PLAN - SEPARATE PAGE ===== */}
+      {prescription.dietPlan && (
+        <div style={{ pageBreakBefore: 'always', padding: '30px 20px', fontFamily: "Arial, sans-serif" }}>
+          <div style={{ textAlign: 'center', marginBottom: '20px', paddingBottom: '15px', borderBottom: '2px solid #000' }}>
+            <h2 style={{ margin: 0, color: '#000', fontSize: '18px', fontWeight: '700' }}>Diet Plan / आहार योजना</h2>
+            <p style={{ margin: '5px 0 0 0', fontSize: '11px', color: '#333' }}>
+              Patient: <strong>{prescription.patient?.name}</strong> | Rx: <strong>{prescription.prescriptionId}</strong> | Date: <strong>{formatDate(prescription.date)}</strong>
+            </p>
+            <p style={{ margin: '3px 0 0 0', fontSize: '11px', color: '#555' }}>
+              Diagnosis: <strong>{prescription.diagnosis}</strong>
+            </p>
+          </div>
+          <div style={{ padding: '15px', border: '1px solid #000', lineHeight: '1.6' }}>
+            <p style={{ margin: 0, fontSize: '12px', color: '#000', whiteSpace: 'pre-line' }}>{prescription.dietPlan}</p>
+          </div>
+          <div style={{ marginTop: '20px', textAlign: 'right' }}>
+            <p style={{ margin: 0, fontWeight: '700', color: '#000', fontSize: '12px' }}>Dr. {prescription.doctor?.name}</p>
+            <p style={{ margin: '2px 0 0 0', fontSize: '10px', color: '#333' }}>{prescription.doctor?.qualification}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 });

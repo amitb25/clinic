@@ -159,22 +159,12 @@ const BlueProfessionalTemplate = forwardRef(({ prescription, clinicSettings }, r
       <div className="prescription-bottom" style={{ marginTop: 'auto' }}>
         {/* Advice & Signature Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', padding: '15px 20px', gap: '20px' }}>
-          {/* Left Side - Advice, Diet Plan & Follow-up */}
+          {/* Left Side - Advice & Follow-up */}
           <div style={{ flex: '1' }}>
-            {(prescription.advice || prescription.dietPlan) && (
+            {prescription.advice && (
               <div style={{ background: '#EFF6FF', borderRadius: '6px', padding: '10px 15px', borderLeft: '4px solid #2563EB', marginBottom: '10px' }}>
-                {prescription.advice && (
-                  <div>
-                    <span style={{ color: '#1E40AF', fontSize: '10px', fontWeight: '700', textTransform: 'uppercase' }}>Advice: </span>
-                    <span style={{ color: '#1E293B', fontSize: '11px', fontWeight: '600' }}>{prescription.advice}</span>
-                  </div>
-                )}
-                {prescription.dietPlan && (
-                  <div style={{ marginTop: prescription.advice ? '6px' : '0' }}>
-                    <span style={{ color: '#1E40AF', fontSize: '10px', fontWeight: '700', textTransform: 'uppercase' }}>Diet Plan: </span>
-                    <span style={{ color: '#1E293B', fontSize: '10px', whiteSpace: 'pre-line', lineHeight: '1.4' }}>{prescription.dietPlan}</span>
-                  </div>
-                )}
+                <span style={{ color: '#1E40AF', fontSize: '10px', fontWeight: '700', textTransform: 'uppercase' }}>Advice: </span>
+                <span style={{ color: '#1E293B', fontSize: '11px', fontWeight: '600' }}>{prescription.advice}</span>
               </div>
             )}
             {prescription.followUpDate && (
@@ -224,6 +214,28 @@ const BlueProfessionalTemplate = forwardRef(({ prescription, clinicSettings }, r
           )}
         </div>
       </div>
+
+      {/* ===== DIET PLAN - SEPARATE PAGE ===== */}
+      {prescription.dietPlan && (
+        <div style={{ pageBreakBefore: 'always', padding: '30px 25px', fontFamily: "'Segoe UI', 'Roboto', Arial, sans-serif" }}>
+          <div style={{ textAlign: 'center', marginBottom: '20px', paddingBottom: '15px', borderBottom: '2px solid #2563EB' }}>
+            <h2 style={{ margin: 0, color: '#1E40AF', fontSize: '18px', fontWeight: '700' }}>Diet Plan / आहार योजना</h2>
+            <p style={{ margin: '5px 0 0 0', fontSize: '11px', color: '#374151' }}>
+              Patient: <strong>{prescription.patient?.name}</strong> | Rx: <strong>{prescription.prescriptionId}</strong> | Date: <strong>{formatDate(prescription.date)}</strong>
+            </p>
+            <p style={{ margin: '3px 0 0 0', fontSize: '11px', color: '#64748B' }}>
+              Diagnosis: <strong>{prescription.diagnosis}</strong>
+            </p>
+          </div>
+          <div style={{ padding: '15px', background: '#EFF6FF', borderRadius: '8px', border: '1px solid #BFDBFE', lineHeight: '1.6' }}>
+            <p style={{ margin: 0, fontSize: '12px', color: '#1E293B', whiteSpace: 'pre-line' }}>{prescription.dietPlan}</p>
+          </div>
+          <div style={{ marginTop: '20px', textAlign: 'right' }}>
+            <p style={{ margin: 0, fontWeight: '700', color: '#1E40AF', fontSize: '12px' }}>Dr. {prescription.doctor?.name}</p>
+            <p style={{ margin: '2px 0 0 0', fontSize: '10px', color: '#64748B' }}>{prescription.doctor?.qualification}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 });
