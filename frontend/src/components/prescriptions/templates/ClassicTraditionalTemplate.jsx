@@ -134,22 +134,24 @@ const ClassicTraditionalTemplate = forwardRef(({ prescription, clinicSettings },
 
       </div>
 
-      {/* ===== DIET PLAN ===== */}
-      {prescription.dietPlan && (
-        <div style={{ padding: '0 15px', marginBottom: '10px' }}>
-          <p style={{ margin: 0, fontSize: '11px', fontWeight: '700' }}>Diet Plan:</p>
-          <p style={{ margin: '3px 0 0 0', fontSize: '11px', whiteSpace: 'pre-line', lineHeight: '1.5' }}>{prescription.dietPlan}</p>
-        </div>
-      )}
-
       {/* ===== BOTTOM SECTION ===== */}
       <div className="prescription-bottom" style={{ marginTop: 'auto', padding: '0 15px 15px' }}>
 
-        {/* Advice */}
-        {prescription.advice && (
+        {/* Advice & Diet Plan */}
+        {(prescription.advice || prescription.dietPlan) && (
           <div style={{ marginBottom: '10px' }}>
-            <p style={{ margin: 0, fontSize: '11px', fontWeight: '700' }}>Advice:</p>
-            <p style={{ margin: '3px 0 0 0', fontSize: '11px' }}>* {prescription.advice}</p>
+            {prescription.advice && (
+              <div>
+                <p style={{ margin: 0, fontSize: '11px', fontWeight: '700' }}>Advice:</p>
+                <p style={{ margin: '3px 0 0 0', fontSize: '11px' }}>* {prescription.advice}</p>
+              </div>
+            )}
+            {prescription.dietPlan && (
+              <div style={{ marginTop: prescription.advice ? '6px' : '0' }}>
+                <p style={{ margin: 0, fontSize: '11px', fontWeight: '700' }}>Diet Plan:</p>
+                <p style={{ margin: '3px 0 0 0', fontSize: '10px', whiteSpace: 'pre-line', lineHeight: '1.4' }}>{prescription.dietPlan}</p>
+              </div>
+            )}
           </div>
         )}
 

@@ -177,28 +177,26 @@ const LightRedTemplate = forwardRef(({ prescription, clinicSettings }, ref) => {
 
       </div>
 
-      {/* ===== DIET PLAN SECTION ===== */}
-      {prescription.dietPlan && (
-        <div style={{ padding: '0 20px', marginBottom: '10px' }}>
-          <div style={{ borderRadius: '8px', padding: '10px 15px', border: '1px solid #C41E3A' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px', paddingBottom: '6px', borderBottom: '1px dashed #C41E3A' }}>
-              <span style={{ color: '#C41E3A', padding: '3px 8px', borderRadius: '10px', fontSize: '10px', fontWeight: '600', border: '1px solid #C41E3A' }}>Diet Plan</span>
-            </div>
-            <p style={{ margin: 0, fontSize: '11px', color: '#333', whiteSpace: 'pre-line', lineHeight: '1.5' }}>{prescription.dietPlan}</p>
-          </div>
-        </div>
-      )}
-
-      {/* ===== BOTTOM SECTION - Advice, Follow-up, Signature ===== */}
+      {/* ===== BOTTOM SECTION - Advice, Diet Plan, Follow-up, Signature ===== */}
       <div className="prescription-bottom" style={{ marginTop: 'auto' }}>
         {/* Advice & Signature Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', padding: '15px 20px', gap: '20px' }}>
-          {/* Left Side - Advice & Follow-up */}
+          {/* Left Side - Advice, Diet Plan & Follow-up */}
           <div style={{ flex: '1' }}>
-            {prescription.advice && (
+            {(prescription.advice || prescription.dietPlan) && (
               <div style={{ borderRadius: '8px', padding: '10px 15px', borderLeft: '4px solid #C41E3A', marginBottom: '10px', border: '1px solid #C41E3A' }}>
-                <span style={{ color: '#C41E3A', fontSize: '10px', fontWeight: '700', textTransform: 'uppercase' }}>Advice: </span>
-                <span style={{ color: '#333', fontSize: '12px', fontWeight: '600' }}>{prescription.advice}</span>
+                {prescription.advice && (
+                  <div>
+                    <span style={{ color: '#C41E3A', fontSize: '10px', fontWeight: '700', textTransform: 'uppercase' }}>Advice: </span>
+                    <span style={{ color: '#333', fontSize: '11px', fontWeight: '600' }}>{prescription.advice}</span>
+                  </div>
+                )}
+                {prescription.dietPlan && (
+                  <div style={{ marginTop: prescription.advice ? '6px' : '0' }}>
+                    <span style={{ color: '#C41E3A', fontSize: '10px', fontWeight: '700', textTransform: 'uppercase' }}>Diet Plan: </span>
+                    <span style={{ color: '#333', fontSize: '10px', whiteSpace: 'pre-line', lineHeight: '1.4' }}>{prescription.dietPlan}</span>
+                  </div>
+                )}
               </div>
             )}
             {prescription.followUpDate && (
