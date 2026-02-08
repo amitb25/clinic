@@ -8,6 +8,7 @@ import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
 import Input from '../components/common/Input';
 import Select from '../components/common/Select';
+import SearchableSelect from '../components/common/SearchableSelect';
 import Table from '../components/common/Table';
 import Pagination from '../components/common/Pagination';
 import api from '../services/api';
@@ -804,8 +805,8 @@ const Prescriptions = () => {
               {formData.medicines.map((med, index) => (
                 <div key={index} className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 space-y-3">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <Select
-                      placeholder="Select medicine"
+                    <SearchableSelect
+                      placeholder="Search medicine..."
                       value={med.medicine}
                       onChange={(e) => updateMedicine(index, 'medicine', e.target.value)}
                       options={medicines.map(m => ({ value: m._id, label: `${m.name} (${m.category})` }))}
