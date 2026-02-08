@@ -6,6 +6,8 @@ import Modal from '../components/common/Modal';
 import Input from '../components/common/Input';
 import Select from '../components/common/Select';
 import Table from '../components/common/Table';
+import WarpLoader from '../components/common/WarpLoader';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 import { formatDate, isExpired, getDaysUntilExpiry } from '../utils/helpers';
 import { useAuth } from '../context/AuthContext';
@@ -25,9 +27,11 @@ const CATEGORIES = [
 
 const Medicines = () => {
   const { isAdmin } = useAuth();
+  const toast = useToast();
   const [medicines, setMedicines] = useState([]);
   const [alerts, setAlerts] = useState({ lowStock: [], expired: [], expiringSoon: [] });
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showAlertsModal, setShowAlertsModal] = useState(false);
   const [editingMedicine, setEditingMedicine] = useState(null);
@@ -72,29 +76,39 @@ const Medicines = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setActionLoading(true);
     try {
       if (editingMedicine) {
         await api.put(`/medicines/${editingMedicine._id}`, formData);
+        toast.success('Medicine updated successfully!');
       } else {
         await api.post('/medicines', formData);
+        toast.success('Medicine added successfully!');
       }
       fetchMedicines();
       fetchAlerts();
       closeModal();
     } catch (error) {
       console.error('Error saving medicine:', error);
-      alert(error.response?.data?.message || 'Error saving medicine');
+      toast.error(error.response?.data?.message || 'Error saving medicine');
+    } finally {
+      setActionLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this medicine?')) {
+      setActionLoading(true);
       try {
         await api.delete(`/medicines/${id}`);
         fetchMedicines();
         fetchAlerts();
+        toast.success('Medicine deleted successfully!');
       } catch (error) {
         console.error('Error deleting medicine:', error);
+        toast.error(error.response?.data?.message || 'Error deleting medicine');
+      } finally {
+        setActionLoading(false);
       }
     }
   };
@@ -243,6 +257,7 @@ const Medicines = () => {
 
   return (
     <div className="space-y-6">
+      <WarpLoader visible={actionLoading} />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>

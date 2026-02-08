@@ -3,6 +3,8 @@ import { Building2, Save, Phone, Mail, Globe, MapPin, Clock } from 'lucide-react
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
+import WarpLoader from '../components/common/WarpLoader';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -20,6 +22,7 @@ const defaultTimings = DAYS.map(day => ({
 }));
 
 const ClinicSettings = () => {
+  const toast = useToast();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
@@ -102,10 +105,10 @@ const ClinicSettings = () => {
     setSaving(true);
     try {
       await api.put('/clinic-settings', formData);
-      alert('Clinic settings updated successfully!');
+      toast.success('Clinic settings updated successfully!');
     } catch (error) {
       console.error('Error saving clinic settings:', error);
-      alert(error.response?.data?.message || 'Error saving settings');
+      toast.error(error.response?.data?.message || 'Error saving settings');
     } finally {
       setSaving(false);
     }
@@ -148,6 +151,7 @@ const ClinicSettings = () => {
 
   return (
     <div className="space-y-6">
+      <WarpLoader visible={saving} />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>

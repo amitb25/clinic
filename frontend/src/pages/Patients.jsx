@@ -7,6 +7,8 @@ import Input from '../components/common/Input';
 import Select from '../components/common/Select';
 import Table from '../components/common/Table';
 import Pagination from '../components/common/Pagination';
+import WarpLoader from '../components/common/WarpLoader';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 import { formatDate } from '../utils/helpers';
 
@@ -28,8 +30,10 @@ const BLOOD_GROUP_OPTIONS = [
 ];
 
 const Patients = () => {
+  const toast = useToast();
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [editingPatient, setEditingPatient] = useState(null);
@@ -80,6 +84,7 @@ const Patients = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setActionLoading(true);
     try {
       const data = {
         ...formData,
@@ -89,24 +94,33 @@ const Patients = () => {
 
       if (editingPatient) {
         await api.put(`/patients/${editingPatient._id}`, data);
+        toast.success('Patient updated successfully!');
       } else {
         await api.post('/patients', data);
+        toast.success('Patient created successfully!');
       }
       fetchPatients();
       closeModal();
     } catch (error) {
       console.error('Error saving patient:', error);
-      alert(error.response?.data?.message || 'Error saving patient');
+      toast.error(error.response?.data?.message || 'Error saving patient');
+    } finally {
+      setActionLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this patient?')) {
+      setActionLoading(true);
       try {
         await api.delete(`/patients/${id}`);
         fetchPatients();
+        toast.success('Patient deleted successfully!');
       } catch (error) {
         console.error('Error deleting patient:', error);
+        toast.error(error.response?.data?.message || 'Error deleting patient');
+      } finally {
+        setActionLoading(false);
       }
     }
   };
@@ -242,6 +256,7 @@ const Patients = () => {
 
   return (
     <div className="space-y-6">
+      <WarpLoader visible={actionLoading} />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>

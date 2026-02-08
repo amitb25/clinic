@@ -6,13 +6,17 @@ import Modal from '../components/common/Modal';
 import Input from '../components/common/Input';
 import Select from '../components/common/Select';
 import Table from '../components/common/Table';
+import WarpLoader from '../components/common/WarpLoader';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 const Doctors = () => {
+  const toast = useToast();
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [editingDoctor, setEditingDoctor] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -64,27 +68,37 @@ const Doctors = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setActionLoading(true);
     try {
       if (editingDoctor) {
         await api.put(`/doctors/${editingDoctor._id}`, formData);
+        toast.success('Doctor updated successfully!');
       } else {
         await api.post('/doctors', formData);
+        toast.success('Doctor created successfully!');
       }
       fetchDoctors();
       closeModal();
     } catch (error) {
       console.error('Error saving doctor:', error);
-      alert(error.response?.data?.message || 'Error saving doctor');
+      toast.error(error.response?.data?.message || 'Error saving doctor');
+    } finally {
+      setActionLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this doctor?')) {
+      setActionLoading(true);
       try {
         await api.delete(`/doctors/${id}`);
         fetchDoctors();
+        toast.success('Doctor deleted successfully!');
       } catch (error) {
         console.error('Error deleting doctor:', error);
+        toast.error(error.response?.data?.message || 'Error deleting doctor');
+      } finally {
+        setActionLoading(false);
       }
     }
   };
@@ -128,7 +142,7 @@ const Doctors = () => {
     const file = e.target.files[0];
     if (file) {
       if (file.size > 500000) { // 500KB limit
-        alert('Signature image size should be less than 500KB');
+        toast.warning('Signature image size should be less than 500KB');
         return;
       }
       const reader = new FileReader();
@@ -321,6 +335,7 @@ const Doctors = () => {
 
   return (
     <div className="space-y-6">
+      <WarpLoader visible={actionLoading} />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>

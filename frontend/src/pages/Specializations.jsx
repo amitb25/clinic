@@ -5,11 +5,15 @@ import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
 import Input from '../components/common/Input';
 import Table from '../components/common/Table';
+import WarpLoader from '../components/common/WarpLoader';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 
 const Specializations = () => {
+  const toast = useToast();
   const [specializations, setSpecializations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -35,37 +39,52 @@ const Specializations = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setActionLoading(true);
     try {
       if (editingItem) {
         await api.put(`/specializations/${editingItem._id}`, formData);
+        toast.success('Specialization updated successfully!');
       } else {
         await api.post('/specializations', formData);
+        toast.success('Specialization created successfully!');
       }
       fetchSpecializations();
       closeModal();
     } catch (error) {
       console.error('Error saving specialization:', error);
-      alert(error.response?.data?.message || 'Error saving specialization');
+      toast.error(error.response?.data?.message || 'Error saving specialization');
+    } finally {
+      setActionLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this specialization?')) {
+      setActionLoading(true);
       try {
         await api.delete(`/specializations/${id}`);
         fetchSpecializations();
+        toast.success('Specialization deleted successfully!');
       } catch (error) {
         console.error('Error deleting specialization:', error);
+        toast.error(error.response?.data?.message || 'Error deleting specialization');
+      } finally {
+        setActionLoading(false);
       }
     }
   };
 
   const handleToggleStatus = async (item) => {
+    setActionLoading(true);
     try {
       await api.put(`/specializations/${item._id}`, { isActive: !item.isActive });
       fetchSpecializations();
+      toast.success(`Specialization ${!item.isActive ? 'activated' : 'deactivated'} successfully!`);
     } catch (error) {
       console.error('Error updating status:', error);
+      toast.error(error.response?.data?.message || 'Error updating status');
+    } finally {
+      setActionLoading(false);
     }
   };
 
@@ -163,6 +182,7 @@ const Specializations = () => {
 
   return (
     <div className="space-y-6">
+      <WarpLoader visible={actionLoading} />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>

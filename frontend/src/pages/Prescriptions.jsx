@@ -11,6 +11,8 @@ import Select from '../components/common/Select';
 import SearchableSelect from '../components/common/SearchableSelect';
 import Table from '../components/common/Table';
 import Pagination from '../components/common/Pagination';
+import WarpLoader from '../components/common/WarpLoader';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 import { formatDate, formatDateTime, dosageToString } from '../utils/helpers';
 import { useAuth } from '../context/AuthContext';
@@ -123,12 +125,14 @@ const translateDosage = (dosageStr) => {
 
 const Prescriptions = () => {
   const { user } = useAuth();
+  const toast = useToast();
   const [prescriptions, setPrescriptions] = useState([]);
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [medicines, setMedicines] = useState([]);
   const [clinicSettings, setClinicSettings] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
   const [viewingPrescription, setViewingPrescription] = useState(null);
@@ -259,6 +263,7 @@ const Prescriptions = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setActionLoading(true);
     try {
       const data = {
         ...formData,
@@ -271,14 +276,18 @@ const Prescriptions = () => {
 
       if (editingPrescription) {
         await api.put(`/prescriptions/${editingPrescription._id}`, data);
+        toast.success('Prescription updated successfully!');
       } else {
         await api.post('/prescriptions', data);
+        toast.success('Prescription created successfully!');
       }
       fetchPrescriptions();
       closeModal();
     } catch (error) {
       console.error('Error saving prescription:', error);
-      alert(error.response?.data?.message || 'Error saving prescription');
+      toast.error(error.response?.data?.message || 'Error saving prescription');
+    } finally {
+      setActionLoading(false);
     }
   };
 
@@ -585,7 +594,7 @@ const Prescriptions = () => {
       doc.save(`Prescription-${viewingPrescription?.prescriptionId}.pdf`);
     } catch (error) {
       console.error('Error generating PDF:', error);
-      alert('Error generating PDF. Please try again.');
+      toast.error('Error generating PDF. Please try again.');
     }
   };
 
@@ -660,6 +669,7 @@ const Prescriptions = () => {
 
   return (
     <div className="space-y-6">
+      <WarpLoader visible={actionLoading} />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>

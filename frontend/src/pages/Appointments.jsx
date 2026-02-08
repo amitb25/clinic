@@ -7,6 +7,8 @@ import Input from '../components/common/Input';
 import Select from '../components/common/Select';
 import Table from '../components/common/Table';
 import Pagination from '../components/common/Pagination';
+import WarpLoader from '../components/common/WarpLoader';
+import { useToast } from '../context/ToastContext';
 import api from '../services/api';
 import { formatDate, formatTime, getStatusColor, generateTimeSlots } from '../utils/helpers';
 
@@ -17,10 +19,12 @@ const STATUS_OPTIONS = [
 ];
 
 const Appointments = () => {
+  const toast = useToast();
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [editingAppointment, setEditingAppointment] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,37 +87,52 @@ const Appointments = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setActionLoading(true);
     try {
       if (editingAppointment) {
         await api.put(`/appointments/${editingAppointment._id}`, formData);
+        toast.success('Appointment updated successfully!');
       } else {
         await api.post('/appointments', formData);
+        toast.success('Appointment booked successfully!');
       }
       fetchAppointments();
       closeModal();
     } catch (error) {
       console.error('Error saving appointment:', error);
-      alert(error.response?.data?.message || 'Error saving appointment');
+      toast.error(error.response?.data?.message || 'Error saving appointment');
+    } finally {
+      setActionLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this appointment?')) {
+      setActionLoading(true);
       try {
         await api.delete(`/appointments/${id}`);
         fetchAppointments();
+        toast.success('Appointment deleted successfully!');
       } catch (error) {
         console.error('Error deleting appointment:', error);
+        toast.error(error.response?.data?.message || 'Error deleting appointment');
+      } finally {
+        setActionLoading(false);
       }
     }
   };
 
   const updateStatus = async (id, status) => {
+    setActionLoading(true);
     try {
       await api.put(`/appointments/${id}`, { status });
       fetchAppointments();
+      toast.success(`Appointment ${status} successfully!`);
     } catch (error) {
       console.error('Error updating status:', error);
+      toast.error(error.response?.data?.message || 'Error updating status');
+    } finally {
+      setActionLoading(false);
     }
   };
 
@@ -268,6 +287,7 @@ const Appointments = () => {
 
   return (
     <div className="space-y-6">
+      <WarpLoader visible={actionLoading} />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>

@@ -30,7 +30,7 @@ const Toast = ({ message, type = 'info', onClose, duration = 3000 }) => {
   return (
     <div
       className={`
-        fixed bottom-4 right-4 z-50 flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg
+        flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg
         transform transition-all duration-300
         ${backgrounds[type]}
         ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'}
@@ -53,8 +53,9 @@ const Toast = ({ message, type = 'info', onClose, duration = 3000 }) => {
 
 // Toast container for managing multiple toasts
 export const ToastContainer = ({ toasts, removeToast }) => {
+  if (toasts.length === 0) return null;
   return (
-    <div className="fixed bottom-4 right-4 z-50 space-y-2">
+    <div className="fixed bottom-4 right-4 space-y-2" style={{ zIndex: 99999 }}>
       {toasts.map((toast) => (
         <Toast
           key={toast.id}
